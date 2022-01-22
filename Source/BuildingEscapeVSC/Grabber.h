@@ -28,7 +28,10 @@ public:
 private:
 	float Reach = 100.f;
 
+	UPROPERTY()
 	UPhysicsHandleComponent *PhysicsHandle = nullptr;
+
+	UPROPERTY()
 	UInputComponent *InputComponent = nullptr;
 
 	void Grab();
@@ -36,4 +39,10 @@ private:
 	void FindPhysicsHandle();
 	void SetupInputComponent();
 	FHitResult GetFirstPhysicsBodyInReach() const;
+
+	// Return the line trace end
+	FVector GetPlayerReach() const;
+
+	// Get player's position in the world
+	FVector GetPlayerWorldPos() const;
 };

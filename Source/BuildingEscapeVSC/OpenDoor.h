@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/AudioComponent.h"
 #include "Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
@@ -32,6 +33,8 @@ public:
 	// Perform the close door action
 	void CloseDoor(float DeltaTime);
 
+	float TotalMassOfActors() const;
+
 private:
 	float InitialYaw;
 	float CurrentYaw;
@@ -51,8 +54,19 @@ private:
 	float DoorCloseSpeed = 4.f;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerVolume *PressurePlate;
+	float MassThatOpensDoor = 60.f;
 
 	UPROPERTY(EditAnywhere)
-	AActor *ActorThatOpens;
+	ATriggerVolume *PressurePlate = nullptr;
+
+	UPROPERTY()
+	UAudioComponent *AudioComponent = nullptr;
+
+	void FindAudioComponent();
+
+	void FindPressurePlate();
+
+	// Track whether the sound has been played
+	bool OpenDoorSound = false;
+	bool CloseDoorSound = true;
 };
